@@ -1,0 +1,28 @@
+{
+  "degrees": [
+    { "id": 1714, "name": "GRADO EN INGENIERÍA INFORMÁTICA" },
+    { "id": 1716, "name": "GRADO EN INGENIERÍA AEROESPACIAL" },
+    {
+      "id": 1717,
+      "name": "GRADO EN INGENIERÍA EN DISEÑO INDUSTRIAL Y DESARROLLO DEL PRODUCTO"
+    },
+    { "id": 1718, "name": "GRADO EN INGENIERÍA ELÉCTRICA" },
+    { "id": 1719, "name": "GRADO EN INGENIERÍA ELECTRÓNICA INDUSTRIAL" },
+    { "id": 1720, "name": "GRADO EN INGENIERÍA MECÁNICA" },
+    { "id": 1721, "name": "GRADO EN INGENIERÍA EN TECNOLOGÍAS INDUSTRIALES" },
+    { "id": 1725, "name": "GRADO EN INGENIERÍA INFORMÁTICA" },
+    { "id": 1762, "name": "MÁSTER EN INGENIERÍA ACÚSTICA" },
+    { "id": 1763, "name": "MÁSTER EN INGENIERÍA DE FABRICACIÓN" },
+    {
+      "id": 1764,
+      "name": "MÁSTER EN INVESTIGACIÓN EN INGENIERÍA DE SISTEMAS Y DE LA COMPUTACIÓN"
+    },
+    {
+      "id": 1765,
+      "name": "MÁSTER EN INVESTIGACIÓN EN INGENIERÍA DE SISTEMAS Y DE LA COMPUTACIÓN"
+    },
+    { "id": 1766, "name": "MÁSTER EN PREVENCIÓN DE RIESGOS LABORALES" },
+    { "id": 1768, "name": "MÁSTER EN INGENIERÍA INDUSTRIAL" },
+    { "id": 1769, "name": "MÁSTER EN SEGURIDAD INFORMÁTICA (CIBERSEGURIDAD)" }
+  ]
+}

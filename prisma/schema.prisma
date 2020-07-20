@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ALUMN
+  PROFESSOR
+  ADMINISTRATOR
+}
+
+model TimeTable {
+  id       Int                @default(autoincrement()) @id
+  user     User               @relation(fields: [userId], references: [id])
+  userId   Int
+  subjects TimeTableSubject[]
+}
+
+model User {
+  uid       String        @unique
+  id        Int           @default(autoincrement()) @id
+  password  String
+  name      String?
+  lastName  String?
+  role      Role          @default(ALUMN)
+  timeTable TimeTable?
+  subjects  UserSubject[]
+}
+
+model Degree {
+  id       Int             @id
+  name     String
+  subjects DegreeSubject[]
+}
+
+model Subject {
+  id           Int                @id
+  name         String
+  abrev        String
+  startHour    DateTime
+  endHour      DateTime
+  classRoom    String
+  type         String
+  dayOfTheWeek Int
+  colorBgc     String
+  colorAbrev   String
+  groups       Group[]
+  users        UserSubject[]
+  timetables   TimeTableSubject[]
+  degrees      DegreeSubject[]
+}
+
+model DegreeSubject {
+  degree    Degree  @relation(fields: [degreeId], references: [id])
+  degreeId  Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  subjectId Int
+  @@id([degreeId, subjectId])
+}
+
+model UserSubject {
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  subjectId Int
+  @@id([userId, subjectId])
+}
+
+model TimeTableSubject {
+  timeTable   TimeTable @relation(fields: [timeTableId], references: [id])
+  timeTableId Int
+  subject     Subject   @relation(fields: [subjectId], references: [id])
+  subjectId   Int
+  @@id([timeTableId, subjectId])
+
+}
+
+model Group {
+  id        Int      @default(autoincrement()) @id
+  name      String
+  weeks     Week[]
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+  subjectId Int?
+}
+
+model Week {
+  id      Int    @default(autoincrement()) @id
+  week    Int
+  group   Group? @relation(fields: [groupId], references: [id])
+  groupId Int?
+}
