@@ -5,18 +5,18 @@ import {
   Get,
   NotFoundException,
   Param,
-  Put,
+  Post,
 } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
+import { CreateTimeTableItemDto } from "src/timetable-items/createTimeTableItem.dto";
 import { isNull } from "util";
-import { UpdateSubjectDto } from "./updateSubject.dto";
 
 @Controller("subjects")
 export class SubjectsController {
   constructor(private readonly prisma: PrismaService) {}
 
   @Get()
-  async FindAll() {
+  async findAll() {
     return this.prisma.subject.findMany();
   }
 
@@ -27,24 +27,43 @@ export class SubjectsController {
     return subject;
   }
 
-  @Put(":id")
-  async update(
+  @Post(":id/timetable-items")
+  async create(
     @Param("id") id: number,
-    @Body() updateSubject: UpdateSubjectDto
+    @Body() { groupId, ...newItem }: CreateTimeTableItemDto
   ) {
-    const subject = await this.prisma.subject.findOne({ where: { id } });
+    if (newItem.endHour < newItem.startHour) throw new BadRequestException();
 
-    if (!updateSubject.endHour) {
-      updateSubject.endHour = subject.endHour;
+    const timeTableItems = await this.prisma.timeTableItem.findMany({
+      where: {
+        classRoom: newItem.classRoom,
+        dayOfTheWeek: newItem.dayOfTheWeek,
+      },
+      select: {
+        startHour: true,
+        endHour: true,
+      },
+    });
+
+    const result = timeTableItems.some(
+      (item) =>
+        newItem.endHour < item.endHour && newItem.endHour > item.startHour
+    );
+
+    if (result)
+      throw new BadRequestException(undefined, "invalid hours interval");
+
+    try {
+      const itemCreated = await this.prisma.timeTableItem.create({
+        data: {
+          ...newItem,
+          subject: { connect: { id } },
+          group: { connect: { id: groupId } },
+        },
+      });
+      return itemCreated;
+    } catch (error) {
+      throw new BadRequestException(undefined, "invalid timeTable item");
     }
-
-    if (!updateSubject.startHour) {
-      updateSubject.startHour = subject.startHour;
-    }
-
-    if (updateSubject.endHour < updateSubject.startHour)
-      throw new BadRequestException();
-
-    this.prisma.subject.update({ where: { id }, data: updateSubject });
   }
 }
