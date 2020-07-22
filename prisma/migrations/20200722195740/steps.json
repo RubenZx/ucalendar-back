@@ -268,7 +268,7 @@
       "tag": "CreateField",
       "model": "User",
       "field": "subjects",
-      "type": "UserSubject",
+      "type": "UserTimeTableItem",
       "arity": "List"
     },
     {
@@ -346,79 +346,206 @@
     {
       "tag": "CreateField",
       "model": "Subject",
+      "field": "degrees",
+      "type": "DegreeSubject",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Subject",
+      "field": "timeTableItem",
+      "type": "TimeTableItem",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateModel",
+      "model": "TimeTableItem"
+    },
+    {
+      "tag": "CreateField",
+      "model": "TimeTableItem",
+      "field": "id",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableItem",
+          "field": "id"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableItem",
+          "field": "id"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "autoincrement()"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableItem",
+          "field": "id"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateField",
+      "model": "TimeTableItem",
       "field": "startHour",
-      "type": "DateTime",
+      "type": "String",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Subject",
+      "model": "TimeTableItem",
       "field": "endHour",
-      "type": "DateTime",
+      "type": "String",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Subject",
+      "model": "TimeTableItem",
       "field": "classRoom",
       "type": "String",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Subject",
+      "model": "TimeTableItem",
       "field": "type",
       "type": "String",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Subject",
+      "model": "TimeTableItem",
       "field": "dayOfTheWeek",
       "type": "Int",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Subject",
+      "model": "TimeTableItem",
       "field": "colorBgc",
       "type": "String",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Subject",
+      "model": "TimeTableItem",
       "field": "colorAbrev",
       "type": "String",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "Subject",
+      "model": "TimeTableItem",
       "field": "groups",
       "type": "Group",
       "arity": "List"
     },
     {
       "tag": "CreateField",
-      "model": "Subject",
+      "model": "TimeTableItem",
       "field": "users",
-      "type": "UserSubject",
+      "type": "UserTimeTableItem",
       "arity": "List"
     },
     {
       "tag": "CreateField",
-      "model": "Subject",
+      "model": "TimeTableItem",
       "field": "timetables",
       "type": "TimeTableSubject",
       "arity": "List"
     },
     {
       "tag": "CreateField",
-      "model": "Subject",
-      "field": "degrees",
-      "type": "DegreeSubject",
-      "arity": "List"
+      "model": "TimeTableItem",
+      "field": "subject",
+      "type": "Subject",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableItem",
+          "field": "subject"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableItem",
+          "field": "subject"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[subjectId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableItem",
+          "field": "subject"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "TimeTableItem",
+      "field": "subjectId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Model",
+          "model": "TimeTableItem",
+          "arguments": [
+            {
+              "name": "",
+              "value": "[classRoom, dayOfTheWeek, startHour, endHour]"
+            },
+            {
+              "name": "name",
+              "value": "\"classRoom\""
+            }
+          ]
+        },
+        "directive": "unique"
+      }
     },
     {
       "tag": "CreateModel",
@@ -555,11 +682,11 @@
     },
     {
       "tag": "CreateModel",
-      "model": "UserSubject"
+      "model": "UserTimeTableItem"
     },
     {
       "tag": "CreateField",
-      "model": "UserSubject",
+      "model": "UserTimeTableItem",
       "field": "user",
       "type": "User",
       "arity": "Required"
@@ -569,7 +696,7 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "UserSubject",
+          "model": "UserTimeTableItem",
           "field": "user"
         },
         "directive": "relation"
@@ -581,7 +708,7 @@
         "tag": "Directive",
         "path": {
           "tag": "Field",
-          "model": "UserSubject",
+          "model": "UserTimeTableItem",
           "field": "user"
         },
         "directive": "relation"
@@ -595,7 +722,7 @@
         "tag": "Directive",
         "path": {
           "tag": "Field",
-          "model": "UserSubject",
+          "model": "UserTimeTableItem",
           "field": "user"
         },
         "directive": "relation"
@@ -605,16 +732,16 @@
     },
     {
       "tag": "CreateField",
-      "model": "UserSubject",
+      "model": "UserTimeTableItem",
       "field": "userId",
       "type": "Int",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "UserSubject",
-      "field": "subject",
-      "type": "Subject",
+      "model": "UserTimeTableItem",
+      "field": "timeTableItem",
+      "type": "TimeTableItem",
       "arity": "Required"
     },
     {
@@ -622,8 +749,8 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "UserSubject",
-          "field": "subject"
+          "model": "UserTimeTableItem",
+          "field": "timeTableItem"
         },
         "directive": "relation"
       }
@@ -634,13 +761,13 @@
         "tag": "Directive",
         "path": {
           "tag": "Field",
-          "model": "UserSubject",
-          "field": "subject"
+          "model": "UserTimeTableItem",
+          "field": "timeTableItem"
         },
         "directive": "relation"
       },
       "argument": "fields",
-      "value": "[subjectId]"
+      "value": "[timeTableItemId]"
     },
     {
       "tag": "CreateArgument",
@@ -648,8 +775,8 @@
         "tag": "Directive",
         "path": {
           "tag": "Field",
-          "model": "UserSubject",
-          "field": "subject"
+          "model": "UserTimeTableItem",
+          "field": "timeTableItem"
         },
         "directive": "relation"
       },
@@ -658,8 +785,8 @@
     },
     {
       "tag": "CreateField",
-      "model": "UserSubject",
-      "field": "subjectId",
+      "model": "UserTimeTableItem",
+      "field": "timeTableItemId",
       "type": "Int",
       "arity": "Required"
     },
@@ -668,7 +795,7 @@
       "location": {
         "path": {
           "tag": "Model",
-          "model": "UserSubject"
+          "model": "UserTimeTableItem"
         },
         "directive": "id"
       }
@@ -679,12 +806,12 @@
         "tag": "Directive",
         "path": {
           "tag": "Model",
-          "model": "UserSubject"
+          "model": "UserTimeTableItem"
         },
         "directive": "id"
       },
       "argument": "",
-      "value": "[userId, subjectId]"
+      "value": "[userId, timeTableItemId]"
     },
     {
       "tag": "CreateModel",
@@ -746,8 +873,8 @@
     {
       "tag": "CreateField",
       "model": "TimeTableSubject",
-      "field": "subject",
-      "type": "Subject",
+      "field": "timeTableItem",
+      "type": "TimeTableItem",
       "arity": "Required"
     },
     {
@@ -756,7 +883,7 @@
         "path": {
           "tag": "Field",
           "model": "TimeTableSubject",
-          "field": "subject"
+          "field": "timeTableItem"
         },
         "directive": "relation"
       }
@@ -768,12 +895,12 @@
         "path": {
           "tag": "Field",
           "model": "TimeTableSubject",
-          "field": "subject"
+          "field": "timeTableItem"
         },
         "directive": "relation"
       },
       "argument": "fields",
-      "value": "[subjectId]"
+      "value": "[timeTableItemId]"
     },
     {
       "tag": "CreateArgument",
@@ -782,7 +909,7 @@
         "path": {
           "tag": "Field",
           "model": "TimeTableSubject",
-          "field": "subject"
+          "field": "timeTableItem"
         },
         "directive": "relation"
       },
@@ -792,7 +919,7 @@
     {
       "tag": "CreateField",
       "model": "TimeTableSubject",
-      "field": "subjectId",
+      "field": "timeTableItemId",
       "type": "Int",
       "arity": "Required"
     },
@@ -817,7 +944,7 @@
         "directive": "id"
       },
       "argument": "",
-      "value": "[timeTableId, subjectId]"
+      "value": "[timeTableId, timeTableItemId]"
     },
     {
       "tag": "CreateModel",
@@ -877,15 +1004,15 @@
       "tag": "CreateField",
       "model": "Group",
       "field": "weeks",
-      "type": "Week",
-      "arity": "List"
+      "type": "Json",
+      "arity": "Required"
     },
     {
       "tag": "CreateField",
       "model": "Group",
-      "field": "subject",
-      "type": "Subject",
-      "arity": "Optional"
+      "field": "TimeTableItem",
+      "type": "TimeTableItem",
+      "arity": "Required"
     },
     {
       "tag": "CreateDirective",
@@ -893,7 +1020,7 @@
         "path": {
           "tag": "Field",
           "model": "Group",
-          "field": "subject"
+          "field": "TimeTableItem"
         },
         "directive": "relation"
       }
@@ -905,12 +1032,12 @@
         "path": {
           "tag": "Field",
           "model": "Group",
-          "field": "subject"
+          "field": "TimeTableItem"
         },
         "directive": "relation"
       },
       "argument": "fields",
-      "value": "[subjectId]"
+      "value": "[timeTableItemId]"
     },
     {
       "tag": "CreateArgument",
@@ -919,7 +1046,7 @@
         "path": {
           "tag": "Field",
           "model": "Group",
-          "field": "subject"
+          "field": "TimeTableItem"
         },
         "directive": "relation"
       },
@@ -929,116 +1056,9 @@
     {
       "tag": "CreateField",
       "model": "Group",
-      "field": "subjectId",
-      "type": "Int",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateModel",
-      "model": "Week"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Week",
-      "field": "id",
+      "field": "timeTableItemId",
       "type": "Int",
       "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Week",
-          "field": "id"
-        },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Week",
-          "field": "id"
-        },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Week",
-          "field": "id"
-        },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Week",
-      "field": "week",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Week",
-      "field": "group",
-      "type": "Group",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Week",
-          "field": "group"
-        },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Week",
-          "field": "group"
-        },
-        "directive": "relation"
-      },
-      "argument": "fields",
-      "value": "[groupId]"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Week",
-          "field": "group"
-        },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Week",
-      "field": "groupId",
-      "type": "Int",
-      "arity": "Optional"
     }
   ]
 }

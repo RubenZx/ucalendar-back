@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 enum Role {
@@ -54,11 +54,11 @@ model TimeTableItem {
   dayOfTheWeek Int
   colorBgc     String
   colorAbrev   String
+  group        Group               @relation(fields: [groupId], references: [id])
+  groupId      Int
   weeks        Json
   users        UserTimeTableItem[]
   timetables   TimeTableSubject[]
-  group        Group               @relation(fields: [groupId], references: [id])
-  groupId      Int
   subject      Subject             @relation(fields: [subjectId], references: [id])
   subjectId    Int
   @@unique([classRoom, dayOfTheWeek, startHour, endHour], name: "classRoom")
