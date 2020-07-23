@@ -1,0 +1,72 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeTable",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "newValue": "[uid]"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "TimeTable",
+      "field": "userId",
+      "type": "String"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "id"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "uid"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "DeleteDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "uid"
+        },
+        "directive": "unique"
+      }
+    },
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "UserTimeTableItem",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "newValue": "[uid]"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "UserTimeTableItem",
+      "field": "userId",
+      "type": "String"
+    }
+  ]
+}
