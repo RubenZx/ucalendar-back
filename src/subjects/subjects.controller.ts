@@ -22,21 +22,33 @@ export class SubjectsController {
 
   @Get(":id")
   async findOne(@Param("id") id: number) {
-    const subject = await this.prisma.subject.findOne({ where: { id } });
+    const subject = await this.prisma.subject.findOne({
+      where: { id },
+      include: { degrees: { include: { degree: true } } },
+    });
     if (isNull(subject)) throw new NotFoundException();
     return subject;
+  }
+
+  @Get(":id/timetable-items")
+  async getItems(@Param("id") id: number) {
+    const items = await this.prisma.timeTableItem.findMany({
+      where: { subjectId: id },
+      include: { classRoom: true, group: true, subject: true },
+    });
+    if (items.length < 1) throw new NotFoundException();
+    return items;
   }
 
   @Post(":id/timetable-items")
   async create(
     @Param("id") id: number,
-    @Body() { groupId, ...newItem }: CreateTimeTableItemDto
+    @Body() { groupId, classRoomId, ...newItem }: CreateTimeTableItemDto
   ) {
     if (newItem.endHour < newItem.startHour) throw new BadRequestException();
-
     const timeTableItems = await this.prisma.timeTableItem.findMany({
       where: {
-        classRoom: newItem.classRoom,
+        classRoom: { id: classRoomId },
         dayOfTheWeek: newItem.dayOfTheWeek,
       },
       select: {
@@ -45,13 +57,13 @@ export class SubjectsController {
       },
     });
 
-    const result = timeTableItems.some(
+    const result = timeTableItems.map(
       (item) =>
-        newItem.endHour < item.endHour && newItem.endHour > item.startHour
+        newItem.startHour > item.endHour || newItem.endHour < item.startHour
     );
 
-    if (result)
-      throw new BadRequestException(undefined, "invalid hours interval");
+    if (result.some((value) => value === false))
+      throw new BadRequestException(undefined, "Intervalo de horas erróneo");
 
     try {
       const itemCreated = await this.prisma.timeTableItem.create({
@@ -59,11 +71,12 @@ export class SubjectsController {
           ...newItem,
           subject: { connect: { id } },
           group: { connect: { id: groupId } },
+          classRoom: { connect: { id: classRoomId } },
         },
       });
       return itemCreated;
     } catch (error) {
-      throw new BadRequestException(undefined, "invalid timeTable item");
+      throw new BadRequestException(undefined, "Item erróneo");
     }
   }
 }
