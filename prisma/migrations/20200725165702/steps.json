@@ -1,0 +1,164 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateModel",
+      "model": "SubjectGroup"
+    },
+    {
+      "tag": "CreateField",
+      "model": "SubjectGroup",
+      "field": "group",
+      "type": "Group",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "SubjectGroup",
+          "field": "group"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "SubjectGroup",
+          "field": "group"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[groupId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "SubjectGroup",
+          "field": "group"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "SubjectGroup",
+      "field": "groupId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "SubjectGroup",
+      "field": "subject",
+      "type": "Subject",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "SubjectGroup",
+          "field": "subject"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "SubjectGroup",
+          "field": "subject"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[subjectId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "SubjectGroup",
+          "field": "subject"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "SubjectGroup",
+      "field": "subjectId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Model",
+          "model": "SubjectGroup"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Model",
+          "model": "SubjectGroup"
+        },
+        "directive": "id"
+      },
+      "argument": "",
+      "value": "[groupId, subjectId]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Subject",
+      "field": "groups",
+      "type": "SubjectGroup",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Group",
+      "field": "subjects",
+      "type": "SubjectGroup",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Group",
+      "field": "timeTableItem",
+      "type": "TimeTableItem",
+      "arity": "List"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Group",
+      "field": "TimeTableItem"
+    }
+  ]
+}

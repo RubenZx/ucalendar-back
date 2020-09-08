@@ -1,0 +1,41 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "timeTableItem",
+      "type": "UserTimeTableItem",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "TimeTable",
+      "type": "TimeTable",
+      "arity": "List"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "timeTable"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "UserTimeTableItem"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Subject",
+      "field": "user",
+      "type": "UserSubject",
+      "arity": "List"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Subject",
+      "field": "UserSubject"
+    }
+  ]
+}

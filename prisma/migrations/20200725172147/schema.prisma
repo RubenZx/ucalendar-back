@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 enum Role {
@@ -14,21 +14,20 @@ enum Role {
 }
 
 model TimeTable {
-  id             Int                      @default(autoincrement()) @id
-  user           User                     @relation(fields: [userId], references: [uid])
-  userId         String
-  timeTableItems TimeTableTimeTableItem[]
+  id       Int                @default(autoincrement()) @id
+  user     User               @relation(fields: [userId], references: [uid])
+  userId   String
+  subjects TimeTableSubject[]
 }
 
 model User {
-  uid           String              @id
-  password      String
-  name          String?
-  lastName      String?
-  role          Role                @default(ALUMN)
-  subjects      UserSubject[]
-  timeTableItem UserTimeTableItem[]
-  timeTable     TimeTable[]
+  uid       String              @id
+  password  String
+  name      String?
+  lastName  String?
+  role      Role                @default(ALUMN)
+  timeTable TimeTable?
+  subjects  UserTimeTableItem[]
 }
 
 model Degree {
@@ -43,47 +42,31 @@ model Group {
   timeTableItem TimeTableItem[]
 }
 
-model ClassRoom {
-  id            Int             @default(autoincrement()) @id
-  name          String          @unique
-  timeTableItem TimeTableItem[]
-}
-
 model Subject {
   id            Int             @id
   name          String
   abrev         String
   degrees       DegreeSubject[]
   timeTableItem TimeTableItem[]
-  user          UserSubject[]
 }
 
 model TimeTableItem {
-  id           Int                      @default(autoincrement()) @id
+  id           Int                 @default(autoincrement()) @id
   startHour    String
   endHour      String
+  classRoom    String
   type         String
   dayOfTheWeek Int
-  colorBg      String
+  colorBgc     String
   colorAbrev   String
   weeks        Json
   users        UserTimeTableItem[]
-  timetables   TimeTableTimeTableItem[]
-  classRoom    ClassRoom                @relation(fields: [classRoomId], references: [id])
-  classRoomId  Int
-  group        Group                    @relation(fields: [groupId], references: [id])
+  timetables   TimeTableSubject[]
+  group        Group               @relation(fields: [groupId], references: [id])
   groupId      Int
-  subject      Subject                  @relation(fields: [subjectId], references: [id])
+  subject      Subject             @relation(fields: [subjectId], references: [id])
   subjectId    Int
-  @@unique([classRoomId, dayOfTheWeek, startHour, endHour], name: "onlyOneClassRoom")
-}
-
-model UserSubject {
-  user      User    @relation(fields: [userId], references: [uid])
-  userId    String
-  subject   Subject @relation(fields: [subjectId], references: [id])
-  subjectId Int
-  @@id([userId, subjectId])
+  @@unique([classRoom, dayOfTheWeek, startHour, endHour], name: "classRoom")
 }
 
 model DegreeSubject {
@@ -102,7 +85,7 @@ model UserTimeTableItem {
   @@id([userId, timeTableItemId])
 }
 
-model TimeTableTimeTableItem {
+model TimeTableSubject {
   timeTable       TimeTable     @relation(fields: [timeTableId], references: [id])
   timeTableId     Int
   timeTableItem   TimeTableItem @relation(fields: [timeTableItemId], references: [id])

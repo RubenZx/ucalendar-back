@@ -1,0 +1,152 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateModel",
+      "model": "UserSubject"
+    },
+    {
+      "tag": "CreateField",
+      "model": "UserSubject",
+      "field": "user",
+      "type": "User",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "UserSubject",
+          "field": "user"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "UserSubject",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[userId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "UserSubject",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[uid]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "UserSubject",
+      "field": "userId",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "UserSubject",
+      "field": "subject",
+      "type": "Subject",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "UserSubject",
+          "field": "subject"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "UserSubject",
+          "field": "subject"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[subjectId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "UserSubject",
+          "field": "subject"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "UserSubject",
+      "field": "subjectId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Model",
+          "model": "UserSubject"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Model",
+          "model": "UserSubject"
+        },
+        "directive": "id"
+      },
+      "argument": "",
+      "value": "[userId, subjectId]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "UserSubject",
+      "type": "UserSubject",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Subject",
+      "field": "UserSubject",
+      "type": "UserSubject",
+      "arity": "List"
+    }
+  ]
+}

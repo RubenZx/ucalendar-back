@@ -1,0 +1,172 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateModel",
+      "model": "TimeTableTimeTableItem"
+    },
+    {
+      "tag": "CreateField",
+      "model": "TimeTableTimeTableItem",
+      "field": "timeTable",
+      "type": "TimeTable",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableTimeTableItem",
+          "field": "timeTable"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableTimeTableItem",
+          "field": "timeTable"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[timeTableId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableTimeTableItem",
+          "field": "timeTable"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "TimeTableTimeTableItem",
+      "field": "timeTableId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "TimeTableTimeTableItem",
+      "field": "timeTableItem",
+      "type": "TimeTableItem",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableTimeTableItem",
+          "field": "timeTableItem"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableTimeTableItem",
+          "field": "timeTableItem"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[timeTableItemId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableTimeTableItem",
+          "field": "timeTableItem"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "TimeTableTimeTableItem",
+      "field": "timeTableItemId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Model",
+          "model": "TimeTableTimeTableItem"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Model",
+          "model": "TimeTableTimeTableItem"
+        },
+        "directive": "id"
+      },
+      "argument": "",
+      "value": "[timeTableId, timeTableItemId]"
+    },
+    {
+      "tag": "DeleteModel",
+      "model": "TimeTableSubject"
+    },
+    {
+      "tag": "CreateField",
+      "model": "TimeTable",
+      "field": "timeTableItems",
+      "type": "TimeTableTimeTableItem",
+      "arity": "List"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "TimeTable",
+      "field": "subjects"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "timeTable",
+      "type": "TimeTable",
+      "arity": "List"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "TimeTable"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "TimeTableItem",
+      "field": "timetables",
+      "type": "TimeTableTimeTableItem"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "DeleteModel",
+      "model": "SubjectGroup"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Subject",
+      "field": "groups"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Group",
+      "field": "subjects"
+    }
+  ]
+}
