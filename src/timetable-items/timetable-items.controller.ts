@@ -6,12 +6,16 @@ import {
   NotFoundException,
   Param,
   Put,
+  UseGuards,
 } from "@nestjs/common";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { PrismaService } from "src/prisma/prisma.service";
+import { RolesGuard } from "src/roles/roles.guard";
 import { isNull } from "util";
 import { UpdateTimeTableItemDto } from "./updateTimeTableItem.dto";
 
 @Controller("timetable-items")
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class TimetableItemsController {
   constructor(private readonly prisma: PrismaService) {}
 

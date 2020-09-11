@@ -1,11 +1,24 @@
 import { Module } from "@nestjs/common";
+import { AppController } from "./app.controller";
+import { AuthModule } from "./auth/auth.module";
+import { ClassRoomsController } from "./class-rooms/class-rooms.controller";
+import { DegreesController } from "./degrees/degrees.controller";
+import { GroupsController } from "./groups/groups.controller";
 import { PrismaService } from "./prisma/prisma.service";
 import { SubjectsController } from "./subjects/subjects.controller";
-import { TimetableItemsController } from './timetable-items/timetable-items.controller';
+import { TimetableItemsController } from "./timetable-items/timetable-items.controller";
+import { UsersModule } from "./users/users.module";
 
 @Module({
-  imports: [],
-  controllers: [SubjectsController, TimetableItemsController],
+  imports: [AuthModule, UsersModule],
+  controllers: [
+    SubjectsController,
+    TimetableItemsController,
+    AppController,
+    DegreesController,
+    GroupsController,
+    ClassRoomsController,
+  ],
   providers: [PrismaService],
 })
 export class AppModule {}
