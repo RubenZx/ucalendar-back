@@ -1,6 +1,7 @@
 import { JsonArray, TimeTableItemCreateInput } from "@prisma/client";
 import {
   IsArray,
+  IsBoolean,
   IsInt,
   IsNumber,
   IsString,
@@ -16,6 +17,9 @@ export class CreateTimeTableItemDto
 
   @IsNumber()
   classRoomId: number;
+
+  @IsBoolean()
+  semester: boolean;
 
   @IsArray()
   weeks: JsonArray;

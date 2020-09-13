@@ -1,6 +1,7 @@
 import { JsonArray, TimeTableItemUpdateInput } from "@prisma/client";
 import {
   IsArray,
+  IsBoolean,
   IsInt,
   IsNumber,
   IsString,
@@ -10,6 +11,9 @@ import {
 } from "class-validator";
 
 export class UpdateTimeTableItemDto implements TimeTableItemUpdateInput {
+  @IsBoolean()
+  semester: boolean;
+
   @IsNumber()
   groupId?: number;
 
