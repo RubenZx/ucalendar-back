@@ -6,6 +6,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Query,
 } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateTimeTableItemDto } from "src/timetable-items/createTimeTableItem.dto";
@@ -31,11 +32,22 @@ export class SubjectsController {
   }
 
   @Get(":id/timetable-items")
-  async getItems(@Param("id") id: number) {
-    const items = await this.prisma.timeTableItem.findMany({
-      where: { subjectId: id },
-      include: { classRoom: true, group: true, subject: true },
-    });
+  async getItems(@Param("id") id: number, @Query() query) {
+    let items = [];
+    if (query.semester !== undefined) {
+      items = await this.prisma.timeTableItem.findMany({
+        where: {
+          subjectId: id,
+          semester: { equals: query.semester === "true" },
+        },
+        include: { classRoom: true, group: true, subject: true },
+      });
+    } else {
+      items = await this.prisma.timeTableItem.findMany({
+        where: { subjectId: id },
+        include: { classRoom: true, group: true, subject: true },
+      });
+    }
     if (items.length < 1) throw new NotFoundException();
     return items;
   }
@@ -48,6 +60,8 @@ export class SubjectsController {
     if (newItem.endHour < newItem.startHour) throw new BadRequestException();
     const timeTableItems = await this.prisma.timeTableItem.findMany({
       where: {
+        // take timetable-items with the same semester, class-room and day of the week
+        semester: newItem.semester,
         classRoom: { id: classRoomId },
         dayOfTheWeek: newItem.dayOfTheWeek,
       },
@@ -76,7 +90,7 @@ export class SubjectsController {
       });
       return itemCreated;
     } catch (error) {
-      throw new BadRequestException(undefined, "Item erróneo");
+      throw new BadRequestException(undefined, "Error al crear el item");
     }
   }
 }

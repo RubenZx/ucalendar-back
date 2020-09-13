@@ -6,16 +6,13 @@ import {
   NotFoundException,
   Param,
   Put,
-  UseGuards,
 } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { PrismaService } from "src/prisma/prisma.service";
-import { RolesGuard } from "src/roles/roles.guard";
 import { isNull } from "util";
 import { UpdateTimeTableItemDto } from "./updateTimeTableItem.dto";
 
 @Controller("timetable-items")
-@UseGuards(JwtAuthGuard, RolesGuard)
+// @UseGuards(JwtAuthGuard, RolesGuard)
 export class TimetableItemsController {
   constructor(private readonly prisma: PrismaService) {}
 
@@ -39,16 +36,40 @@ export class TimetableItemsController {
     @Body() { classRoomId, groupId, ...newItem }: UpdateTimeTableItemDto
   ) {
     if (newItem.endHour < newItem.startHour) throw new BadRequestException();
-
-    const itemUpdated = await this.prisma.timeTableItem.update({
-      where: { id },
-      data: {
-        ...newItem,
-        classRoom: { connect: { id: classRoomId } },
-        group: { connect: { id: groupId } },
+    const timeTableItems = await this.prisma.timeTableItem.findMany({
+      where: {
+        // take timetable-items with the same semester, class-room and day of the week
+        semester: newItem.semester,
+        classRoom: { id: classRoomId },
+        dayOfTheWeek: newItem.dayOfTheWeek,
+        id: { not: id },
+      },
+      select: {
+        startHour: true,
+        endHour: true,
       },
     });
 
-    return itemUpdated;
+    const result = timeTableItems.map(
+      (item) =>
+        newItem.startHour > item.endHour || newItem.endHour < item.startHour
+    );
+
+    if (result.some((value) => value === false))
+      throw new BadRequestException(undefined, "Intervalo de horas erróneo");
+
+    try {
+      const itemUpdated = await this.prisma.timeTableItem.update({
+        where: { id },
+        data: {
+          ...newItem,
+          classRoom: { connect: { id: classRoomId } },
+          group: { connect: { id: groupId } },
+        },
+      });
+      return itemUpdated;
+    } catch (error) {
+      throw new BadRequestException(undefined, "Error al actualizar el item");
+    }
   }
 }
