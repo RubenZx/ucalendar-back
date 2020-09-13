@@ -1,0 +1,25 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateField",
+      "model": "TimeTableItem",
+      "field": "semester",
+      "type": "Boolean"
+    },
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeTableItem",
+          "field": "semester"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "newValue": "true"
+    }
+  ]
+}
