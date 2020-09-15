@@ -1,23 +1,30 @@
 import { Injectable } from "@nestjs/common";
-import { Subject, TimeTableTimeTableItem, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
-
-export type UserRelations = User & {
-  subjects: { subject: Subject }[];
-  timeTable: { timeTableItems: TimeTableTimeTableItem[] }[];
-};
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findOne(userId: string): Promise<UserRelations> {
-    console.log(userId);
+  async findOne(userId: string): Promise<User> {
     return this.prisma.user.findOne({
       where: { uid: userId },
-      include: {
+    });
+  }
+
+  async findOneWithData(userId: string): Promise<any> {
+    return this.prisma.user.findOne({
+      where: { uid: userId },
+      select: {
+        name: true,
+        lastName: true,
+        role: true,
         subjects: { select: { subject: true } },
-        timeTable: { select: { timeTableItems: true } },
+        timeTable: {
+          select: {
+            timeTable: { select: { semester: true, timeTableItems: true } },
+          },
+        },
       },
     });
   }

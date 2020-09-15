@@ -22,7 +22,7 @@ export class AppController {
   @Get("profile")
   @Bind(Req())
   async getProfile(req) {
-    const user = await this.userService.findOne(req.user.uid);
+    const user = await this.userService.findOneWithData(req.user.uid);
     return user;
   }
 }
