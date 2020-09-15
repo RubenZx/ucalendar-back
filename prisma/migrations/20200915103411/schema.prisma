@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 enum Role {
@@ -16,18 +16,20 @@ enum Role {
 model TimeTable {
   id             Int                      @default(autoincrement()) @id
   semester       Boolean                  @default(true)
+  user           User                     @relation(fields: [userId], references: [uid])
+  userId         String
   timeTableItems TimeTableTimeTableItem[]
-  user           UserTimeTable[]
 }
 
 model User {
-  uid       String          @id
-  password  String
-  name      String?
-  lastName  String?
-  role      Role            @default(ALUMN)
-  subjects  UserSubject[]
-  timeTable UserTimeTable[]
+  uid           String              @id
+  password      String
+  name          String?
+  lastName      String?
+  role          Role                @default(ALUMN)
+  subjects      UserSubject[]
+  timeTableItem UserTimeTableItem[]
+  timeTable     TimeTable[]
 }
 
 model Degree {
@@ -67,6 +69,7 @@ model TimeTableItem {
   colorBg      String
   colorAbrev   String
   weeks        Json
+  users        UserTimeTableItem[]
   timetables   TimeTableTimeTableItem[]
   classRoom    ClassRoom                @relation(fields: [classRoomId], references: [id])
   classRoomId  Int
@@ -93,21 +96,13 @@ model DegreeSubject {
   @@id([degreeId, subjectId])
 }
 
-model UserTimeTable {
-  user        User      @relation(fields: [userId], references: [uid])
-  userId      String
-  timeTable   TimeTable @relation(fields: [timeTableId], references: [id])
-  timeTableId Int
-  @@id([userId, timeTableId])
+model UserTimeTableItem {
+  user            User          @relation(fields: [userId], references: [uid])
+  userId          String
+  timeTableItem   TimeTableItem @relation(fields: [timeTableItemId], references: [id])
+  timeTableItemId Int
+  @@id([userId, timeTableItemId])
 }
-
-// model UserTimeTableItem {
-//   user            User          @relation(fields: [userId], references: [uid])
-//   userId          String
-//   timeTableItem   TimeTableItem @relation(fields: [timeTableItemId], references: [id])
-//   timeTableItemId Int
-//   @@id([userId, timeTableItemId])
-// }
 
 model TimeTableTimeTableItem {
   timeTable       TimeTable     @relation(fields: [timeTableId], references: [id])
