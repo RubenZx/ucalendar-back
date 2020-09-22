@@ -10,7 +10,6 @@ import {
 } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateTimeTableItemDto } from "src/timetable-items/createTimeTableItem.dto";
-import { isNull } from "util";
 
 @Controller("subjects")
 export class SubjectsController {
@@ -27,7 +26,7 @@ export class SubjectsController {
       where: { id },
       include: { degrees: { include: { degree: true } } },
     });
-    if (isNull(subject)) throw new NotFoundException();
+    if (!subject) throw new NotFoundException();
     return subject;
   }
 

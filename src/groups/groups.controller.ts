@@ -8,7 +8,6 @@ import {
   Post,
 } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
-import { isNull } from "util";
 
 @Controller("groups")
 export class GroupsController {
@@ -22,7 +21,7 @@ export class GroupsController {
   @Get(":id")
   async findOne(@Param("id") id: number) {
     const group = await this.prisma.group.findOne({ where: { id } });
-    if (isNull(group)) throw new NotFoundException();
+    if (!group) throw new NotFoundException();
     return group;
   }
 
