@@ -7,7 +7,9 @@ import { GroupsController } from "./groups/groups.controller";
 import { PrismaService } from "./prisma/prisma.service";
 import { SubjectsController } from "./subjects/subjects.controller";
 import { TimetableItemsController } from "./timetable-items/timetable-items.controller";
+import { UsersController } from "./users/users.controller";
 import { UsersModule } from "./users/users.module";
+import { TimetableItemsService } from './timetable-items/timetable-items.service';
 
 @Module({
   imports: [AuthModule, UsersModule],
@@ -18,7 +20,8 @@ import { UsersModule } from "./users/users.module";
     DegreesController,
     GroupsController,
     ClassRoomsController,
+    UsersController,
   ],
-  providers: [PrismaService],
+  providers: [PrismaService, TimetableItemsService],
 })
 export class AppModule {}
