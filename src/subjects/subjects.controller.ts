@@ -7,11 +7,16 @@ import {
   Param,
   Post,
   Query,
+  UseGuards,
 } from "@nestjs/common";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { PrismaService } from "src/prisma/prisma.service";
+import { Roles } from "src/roles/roles.decoratos";
+import { RolesGuard } from "src/roles/roles.guard";
 import { CreateTimeTableItemDto } from "src/timetable-items/createTimeTableItem.dto";
 
 @Controller("subjects")
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class SubjectsController {
   constructor(private readonly prisma: PrismaService) {}
 
@@ -51,6 +56,7 @@ export class SubjectsController {
     return items;
   }
 
+  @Roles("ADMINISTRATOR")
   @Post(":id/timetable-items")
   async create(
     @Param("id") id: number,
@@ -76,7 +82,10 @@ export class SubjectsController {
     );
 
     if (result.some((value) => value === false))
-      throw new BadRequestException(undefined, "Intervalo de horas erróneo");
+      throw new BadRequestException(
+        undefined,
+        "Item inválido, horas, aula y día incompatibles"
+      );
 
     try {
       const itemCreated = await this.prisma.timeTableItem.create({

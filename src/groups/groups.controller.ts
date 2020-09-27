@@ -6,10 +6,15 @@ import {
   NotFoundException,
   Param,
   Post,
+  UseGuards,
 } from "@nestjs/common";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { PrismaService } from "src/prisma/prisma.service";
+import { Roles } from "src/roles/roles.decoratos";
+import { RolesGuard } from "src/roles/roles.guard";
 
 @Controller("groups")
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class GroupsController {
   constructor(private readonly prisma: PrismaService) {}
 
@@ -25,6 +30,7 @@ export class GroupsController {
     return group;
   }
 
+  @Roles("ADMINISTRATOR")
   @Post()
   async create(@Body() { name }: { name: string }) {
     if (/^[A-Z][1-9]$/.test(name)) {
