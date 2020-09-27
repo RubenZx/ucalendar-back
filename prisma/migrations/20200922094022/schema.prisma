@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 enum Role {
@@ -12,6 +12,13 @@ enum Role {
   PROFESSOR
   ADMINISTRATOR
 }
+
+// model TimeTable {
+//   id             Int                      @default(autoincrement()) @id
+//   semester       Boolean                  @default(true)
+//   timeTableItems TimeTableTimeTableItem[]
+//   user           UserTimeTable[]
+// }
 
 model User {
   uid            String               @id
@@ -21,6 +28,7 @@ model User {
   role           Role                 @default(ALUMN)
   subjects       UserSubject[]
   timetableItems UserTimetableItems[]
+  // timeTables UserTimeTable[]
 }
 
 model Degree {
@@ -94,3 +102,19 @@ model UserTimetableItems {
   timeTableItemId Int
   @@id([userId, timeTableItemId])
 }
+
+// model UserTimeTable {
+//   user        User      @relation(fields: [userId], references: [uid])
+//   userId      String
+//   timeTable   TimeTable @relation(fields: [timeTableId], references: [id])
+//   timeTableId Int
+//   @@id([userId, timeTableId])
+// }
+
+// model TimeTableTimeTableItem {
+//   timeTable       TimeTable     @relation(fields: [timeTableId], references: [id])
+//   timeTableId     Int
+//   timeTableItem   TimeTableItem @relation(fields: [timeTableItemId], references: [id])
+//   timeTableItemId Int
+//   @@id([timeTableId, timeTableItemId])
+// }
