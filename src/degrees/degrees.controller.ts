@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Controller, Get, NotFoundException, Param } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 
 @Controller("degrees")
@@ -10,10 +10,18 @@ export class DegreesController {
     return this.prisma.degree.findMany();
   }
 
-  @Get(":id/subjects")
-  async getSubjects(@Param("id") id: number) {
-    return await this.prisma.subject.findMany({
-      where: { degrees: { some: { degreeId: id } } },
+  @Get(":id/subjects/:semester")
+  async getSubjects(
+    @Param("id") id: number,
+    @Param("semester") semester: boolean
+  ) {
+    const subjects = await this.prisma.subject.findMany({
+      where: {
+        degrees: { every: { degreeId: id } },
+        semester: { equals: semester },
+      },
     });
+    if (!subjects) throw new NotFoundException();
+    return subjects;
   }
 }
