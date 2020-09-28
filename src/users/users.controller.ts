@@ -1,14 +1,18 @@
 import {
   BadRequestException,
+  Bind,
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   NotFoundException,
   Param,
   Put,
+  Req,
   UseGuards,
 } from "@nestjs/common";
+import { User } from "@prisma/client";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { PrismaService } from "src/prisma/prisma.service";
 import { Roles } from "src/roles/roles.decoratos";
@@ -74,7 +78,14 @@ export class UsersController {
 
   @Roles("ALUMN" || "PROFESSOR")
   @Delete(":id/timetable-items")
-  async removeTimetableItems(@Param("id") id: string) {
+  @Bind(Req())
+  async removeTimetableItems(
+    { user }: { user: Omit<User, "password"> },
+    @Param("id") id: string
+  ) {
+    if (id !== user.uid) {
+      throw new ForbiddenException();
+    }
     const res = await this.prisma.userTimetableItems.deleteMany({
       where: { userId: id },
     });
@@ -83,10 +94,15 @@ export class UsersController {
 
   @Roles("ALUMN" || "PROFESSOR")
   @Put(":id/timetable-items")
+  @Bind(Req())
   async addTimetableItems(
+    { user }: { user: Omit<User, "password"> },
     @Param("id") id: string,
     @Body() { timetableItemId }: { timetableItemId: number }
   ) {
+    if (id !== user.uid) {
+      throw new ForbiddenException();
+    }
     const isItemValid = await this.timetableItemsService.isNewItemValid(
       id,
       timetableItemId
