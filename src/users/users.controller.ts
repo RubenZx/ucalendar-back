@@ -76,7 +76,7 @@ export class UsersController {
     });
   }
 
-  @Roles("ALUMN" || "PROFESSOR")
+  @Roles("ALUMN", "PROFESSOR")
   @Delete(":id/timetable-items")
   @Bind(Req())
   async removeTimetableItems(
@@ -92,7 +92,7 @@ export class UsersController {
     return res;
   }
 
-  @Roles("ALUMN" || "PROFESSOR")
+  @Roles("ALUMN", "PROFESSOR")
   @Put(":id/timetable-items")
   @Bind(Req())
   async addTimetableItems(
