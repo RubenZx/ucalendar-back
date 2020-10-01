@@ -30,13 +30,13 @@ model Degree {
 }
 
 model Group {
-  id            Int             @default(autoincrement()) @id
+  id            Int             @id @default(autoincrement())
   name          String          @unique
   timeTableItem TimeTableItem[]
 }
 
 model ClassRoom {
-  id            Int             @default(autoincrement()) @id
+  id            Int             @id @default(autoincrement())
   name          String          @unique
   timeTableItem TimeTableItem[]
 }
@@ -52,7 +52,7 @@ model Subject {
 }
 
 model TimeTableItem {
-  id           Int                  @default(autoincrement()) @id
+  id           Int                  @id @default(autoincrement())
   startHour    String
   endHour      String
   type         String
@@ -68,6 +68,7 @@ model TimeTableItem {
   groupId      Int
   subject      Subject              @relation(fields: [subjectId], references: [id])
   subjectId    Int
+
   @@unique([classRoomId, dayOfTheWeek, startHour, endHour], name: "onlyOneClassRoom")
 }
 
@@ -76,6 +77,7 @@ model UserSubject {
   userId    String
   subject   Subject @relation(fields: [subjectId], references: [id])
   subjectId Int
+
   @@id([userId, subjectId])
 }
 
@@ -84,6 +86,7 @@ model DegreeSubject {
   degreeId  Int
   subject   Subject @relation(fields: [subjectId], references: [id])
   subjectId Int
+
   @@id([degreeId, subjectId])
 }
 
@@ -92,5 +95,6 @@ model UserTimetableItems {
   userId          String
   timeTableItem   TimeTableItem @relation(fields: [timeTableItemId], references: [id])
   timeTableItemId Int
+
   @@id([userId, timeTableItemId])
 }
