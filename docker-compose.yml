@@ -6,5 +6,15 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=r00ts€cr€t
       - MYSQL_DATABASE=ucalendar
+    expose:
+      - 3306
+  api:
+    image: ruben/ucalendar-back
+    expose:
+      - 3000
+    environment:
+      - DATABASE_URL=mysql://root:r00ts€cr€t@db:3306/ucalendar
+  front:
+    image: ruben/ucalendar-front
     ports:
-      - 3306:3306
+      - 80:80
