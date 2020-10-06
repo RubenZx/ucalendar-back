@@ -1,19 +1,25 @@
 import { JsonArray, TimeTableItemCreateInput } from "@prisma/client";
 import {
   IsArray,
+  IsBoolean,
   IsInt,
   IsNumber,
   IsString,
   Length,
   Max,
-  MaxLength,
   Min,
 } from "class-validator";
 
 export class CreateTimeTableItemDto
-  implements Omit<TimeTableItemCreateInput, "subject" | "group"> {
+  implements Omit<TimeTableItemCreateInput, "subject" | "group" | "classRoom"> {
   @IsNumber()
   groupId: number;
+
+  @IsNumber()
+  classRoomId: number;
+
+  @IsBoolean()
+  semester: boolean;
 
   @IsArray()
   weeks: JsonArray;
@@ -32,14 +38,10 @@ export class CreateTimeTableItemDto
   dayOfTheWeek: number;
 
   @IsString()
-  @MaxLength(3)
-  classRoom: string;
-
-  @IsString()
   type: string;
 
   @IsString()
-  colorBgc: string;
+  colorBg: string;
 
   @IsString()
   colorAbrev: string;

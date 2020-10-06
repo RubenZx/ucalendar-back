@@ -13,21 +13,14 @@ enum Role {
   ADMINISTRATOR
 }
 
-model TimeTable {
-  id       Int                @default(autoincrement()) @id
-  user     User               @relation(fields: [userId], references: [uid])
-  userId   String
-  subjects TimeTableSubject[]
-}
-
 model User {
-  uid       String              @id
-  password  String
-  name      String?
-  lastName  String?
-  role      Role                @default(ALUMN)
-  timeTable TimeTable?
-  subjects  UserTimeTableItem[]
+  uid            String               @id
+  password       String
+  name           String?
+  lastName       String?
+  role           Role                 @default(ALUMN)
+  subjects       UserSubject[]
+  timetableItems UserTimetableItems[]
 }
 
 model Degree {
@@ -36,31 +29,56 @@ model Degree {
   subjects DegreeSubject[]
 }
 
+model Group {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique
+  timeTableItem TimeTableItem[]
+}
+
+model ClassRoom {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique
+  timeTableItem TimeTableItem[]
+}
+
 model Subject {
   id            Int             @id
   name          String
   abrev         String
+  semester      Boolean         @default(true)
   degrees       DegreeSubject[]
   timeTableItem TimeTableItem[]
+  user          UserSubject[]
 }
 
 model TimeTableItem {
-  id           Int                 @default(autoincrement()) @id
+  id           Int                  @id @default(autoincrement())
   startHour    String
   endHour      String
-  classRoom    String
   type         String
   dayOfTheWeek Int
-  colorBgc     String
+  semester     Boolean              @default(true)
+  colorBg      String
   colorAbrev   String
   weeks        Json
-  users        UserTimeTableItem[]
-  timetables   TimeTableSubject[]
-  group        Group               @relation(fields: [groupId], references: [id])
+  users        UserTimetableItems[]
+  classRoom    ClassRoom            @relation(fields: [classRoomId], references: [id])
+  classRoomId  Int
+  group        Group                @relation(fields: [groupId], references: [id])
   groupId      Int
-  subject      Subject             @relation(fields: [subjectId], references: [id])
+  subject      Subject              @relation(fields: [subjectId], references: [id])
   subjectId    Int
-  @@unique([classRoom, dayOfTheWeek, startHour, endHour], name: "classRoom")
+
+  @@unique([classRoomId, dayOfTheWeek, startHour, endHour], name: "onlyOneClassRoom")
+}
+
+model UserSubject {
+  user      User    @relation(fields: [userId], references: [uid])
+  userId    String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  subjectId Int
+
+  @@id([userId, subjectId])
 }
 
 model DegreeSubject {
@@ -68,27 +86,15 @@ model DegreeSubject {
   degreeId  Int
   subject   Subject @relation(fields: [subjectId], references: [id])
   subjectId Int
+
   @@id([degreeId, subjectId])
 }
 
-model UserTimeTableItem {
+model UserTimetableItems {
   user            User          @relation(fields: [userId], references: [uid])
   userId          String
   timeTableItem   TimeTableItem @relation(fields: [timeTableItemId], references: [id])
   timeTableItemId Int
+
   @@id([userId, timeTableItemId])
-}
-
-model TimeTableSubject {
-  timeTable       TimeTable     @relation(fields: [timeTableId], references: [id])
-  timeTableId     Int
-  timeTableItem   TimeTableItem @relation(fields: [timeTableItemId], references: [id])
-  timeTableItemId Int
-  @@id([timeTableId, timeTableItemId])
-}
-
-model Group {
-  id            Int             @default(autoincrement()) @id
-  name          String
-  TimeTableItem TimeTableItem[]
 }

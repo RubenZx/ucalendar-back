@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = "***"
+}
+
+enum Role {
+  ALUMN
+  PROFESSOR
+  ADMINISTRATOR
+}
+
+model TimeTable {
+  id             Int                      @default(autoincrement()) @id
+  semester       Boolean                  @default(true)
+  timeTableItems TimeTableTimeTableItem[]
+  user           UserTimeTable[]
+}
+
+model User {
+  uid       String          @id
+  password  String
+  name      String?
+  lastName  String?
+  role      Role            @default(ALUMN)
+  subjects  UserSubject[]
+  timeTable UserTimeTable[]
+}
+
+model Degree {
+  id       Int             @id
+  name     String
+  subjects DegreeSubject[]
+}
+
+model Group {
+  id            Int             @default(autoincrement()) @id
+  name          String          @unique
+  timeTableItem TimeTableItem[]
+}
+
+model ClassRoom {
+  id            Int             @default(autoincrement()) @id
+  name          String          @unique
+  timeTableItem TimeTableItem[]
+}
+
+model Subject {
+  id            Int             @id
+  name          String
+  abrev         String
+  degrees       DegreeSubject[]
+  timeTableItem TimeTableItem[]
+  user          UserSubject[]
+}
+
+model TimeTableItem {
+  id           Int                      @default(autoincrement()) @id
+  startHour    String
+  endHour      String
+  type         String
+  dayOfTheWeek Int
+  semester     Boolean                  @default(true)
+  colorBg      String
+  colorAbrev   String
+  weeks        Json
+  timetables   TimeTableTimeTableItem[]
+  classRoom    ClassRoom                @relation(fields: [classRoomId], references: [id])
+  classRoomId  Int
+  group        Group                    @relation(fields: [groupId], references: [id])
+  groupId      Int
+  subject      Subject                  @relation(fields: [subjectId], references: [id])
+  subjectId    Int
+  @@unique([classRoomId, dayOfTheWeek, startHour, endHour], name: "onlyOneClassRoom")
+}
+
+model UserSubject {
+  user      User    @relation(fields: [userId], references: [uid])
+  userId    String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  subjectId Int
+  @@id([userId, subjectId])
+}
+
+model DegreeSubject {
+  degree    Degree  @relation(fields: [degreeId], references: [id])
+  degreeId  Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  subjectId Int
+  @@id([degreeId, subjectId])
+}
+
+model UserTimeTable {
+  user        User      @relation(fields: [userId], references: [uid])
+  userId      String
+  timeTable   TimeTable @relation(fields: [timeTableId], references: [id])
+  timeTableId Int
+  @@id([userId, timeTableId])
+}
+
+// model UserTimeTableItem {
+//   user            User          @relation(fields: [userId], references: [uid])
+//   userId          String
+//   timeTableItem   TimeTableItem @relation(fields: [timeTableItemId], references: [id])
+//   timeTableItemId Int
+//   @@id([userId, timeTableItemId])
+// }
+
+model TimeTableTimeTableItem {
+  timeTable       TimeTable     @relation(fields: [timeTableId], references: [id])
+  timeTableId     Int
+  timeTableItem   TimeTableItem @relation(fields: [timeTableItemId], references: [id])
+  timeTableItemId Int
+  @@id([timeTableId, timeTableItemId])
+}

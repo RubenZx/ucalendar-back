@@ -1,0 +1,45 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Model",
+          "model": "TimeTableItem",
+          "arguments": [
+            {
+              "name": "",
+              "value": "[classRoomId, dayOfTheWeek, startHour, endHour]"
+            },
+            {
+              "name": "name",
+              "value": "\"onlyOneClassRoom\""
+            }
+          ]
+        },
+        "directive": "unique"
+      }
+    },
+    {
+      "tag": "DeleteDirective",
+      "location": {
+        "path": {
+          "tag": "Model",
+          "model": "TimeTableItem",
+          "arguments": [
+            {
+              "name": "",
+              "value": "[classRoomId, dayOfTheWeek, startHour, endHour]"
+            },
+            {
+              "name": "name",
+              "value": "\"classRoom\""
+            }
+          ]
+        },
+        "directive": "unique"
+      }
+    }
+  ]
+}
