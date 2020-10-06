@@ -31,503 +31,507 @@ export const data = {
   subjects: [
     {
       degreeId: 1725,
+      abrev: "OGE",
       id: 21714001,
       name: "ORGANIZACIÓN Y GESTIÓN DE EMPRESAS",
-      abrev: "OGE",
+      semester: true,
     },
     {
       degreeId: 1725,
+      abrev: "EST",
       id: 21714002,
       name: "ESTADÍSTICA",
-      abrev: "EST",
+      semester: false,
     },
     {
       degreeId: 1725,
+      abrev: "FFE",
       id: 21714003,
       name: "FUNDAMENTOS FÍSICOS Y ELECTRÓNICOS DE LA INFORMÁTICA",
-      abrev: "FFE",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "FEC",
       id: 21714004,
       name: "FUNDAMENTOS DE ESTRUCTURA DE COMPUTADORES",
-      abrev: "FEC",
+      semester: false,
     },
     {
       degreeId: 1725,
+      abrev: "IG",
       id: 21714005,
       name: "INFORMÁTICA GENERAL",
-      abrev: "IG",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "IP",
       id: 21714006,
       name: "INTRODUCCIÓN A LA PROGRAMACIÓN",
-      abrev: "IP",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "MP",
       id: 21714007,
       name: "METODOLOGÍA DE LA PROGRAMACIÓN",
-      abrev: "MP",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "ALG",
       id: 21714008,
       name: "ÁLGEBRA",
-      abrev: "ALG",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "CAL",
       id: 21714009,
       name: "CÁLCULO",
-      abrev: "CAL",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "MD",
       id: 21714010,
       name: "MATEMÁTICA DISCRETA",
-      abrev: "MD",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "BD",
       id: 21714011,
       name: "BASES DE DATOS",
-      abrev: "BD",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "IS",
       id: 21714012,
       name: "INGENIERÍA DEL SOFTWARE",
-      abrev: "IS",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "IA",
       id: 21714013,
       name: "INTELIGENCIA ARTIFICIAL",
-      abrev: "IA",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "AAED",
       id: 21714014,
       name: "ANÁLISIS DE ALGORITMOS Y ESTRUCTURAS DE DATOS",
-      abrev: "AAED",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "DA",
       id: 21714015,
       name: "DISEÑO DE ALGORITMOS",
-      abrev: "DA",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "EDNL",
       id: 21714016,
       name: "ESTRUCTURAS DE DATOS NO LINEALES",
-      abrev: "EDNL",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "POO",
       id: 21714017,
       name: "PROGRAMACIÓN ORIENTADA A OBJETOS",
-      abrev: "POO",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "PINF",
       id: 21714018,
       name: "PROYECTOS INFORMÁTICOS",
-      abrev: "PINF",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "AC",
       id: 21714019,
       name: "ARQUITECTURA DE COMPUTADORES",
-      abrev: "AC",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "PCTR",
       id: 21714020,
       name: "PROGRAMACIÓN CONCURRENTE Y DE TIEMPO REAL",
-      abrev: "PCTR",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "RC",
       id: 21714021,
       name: "REDES DE COMPUTADORES",
-      abrev: "RC",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "SD",
       id: 21714022,
       name: "SISTEMAS DISTRIBUIDOS",
-      abrev: "SD",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "SO",
       id: 21714023,
       name: "SISTEMAS OPERATIVOS",
-      abrev: "SO",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "CC",
       id: 21714024,
       name: "COMPLEJIDAD COMPUTACIONAL",
-      abrev: "CC",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "MC",
       id: 21714025,
       name: "MODELOS DE COMPUTACIÓN",
-      abrev: "MC",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "PL",
       id: 21714026,
       name: "PROCESADORES DE LENGUAJES",
-      abrev: "PL",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "TALF",
       id: 21714027,
       name: "TEORÍA DE AUTÓMATAS Y LENGUAJES FORMALES",
-      abrev: "TALF",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "APC",
       id: 21714028,
       name: "APRENDIZAJE COMPUTACIONAL",
-      abrev: "APC",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "P",
       id: 21714029,
       name: "PERCEPCIÓN",
-      abrev: "P",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "RP",
       id: 21714030,
       name: "RECONOCIMIENTO DE PATRONES",
-      abrev: "RP",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "SI",
       id: 21714031,
       name: "SISTEMAS INTELIGENTES",
-      abrev: "SI",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "ACPD",
       id: 21714032,
       name: "ARQUITECTURAS DE COMPUTADORES PARALELOS Y DISTRIBUIDOS",
-      abrev: "ACPD",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "PPD",
       id: 21714033,
       name: "PROGRAMACIÓN PARALELA Y DISTRIBUIDA",
-      abrev: "PPD",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "DAAC",
       id: 21714034,
       name: "DISEÑO AVANZADO DE ARQUITECTURA DE COMPUTADORES",
-      abrev: "DAAC",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "DBM",
       id: 21714035,
       name: "DISEÑO BASADO EN MICROPROCESADORES",
-      abrev: "DBM",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "DCE",
       id: 21714036,
       name: "DISEÑO DE COMPUTADORES EMPOTRADOS",
-      abrev: "DCE",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "TDC",
       id: 21714037,
       name: "TÉCNICAS DE DISEÑO DE COMPUTADORES",
-      abrev: "TDC",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "ASRC",
       id: 21714038,
       name: "ADMINISTRACIÓN Y SEGURIDAD DE REDES DE COMPUTADORES",
-      abrev: "ASRC",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "DRC",
       id: 21714039,
       name: "DISEÑO DE REDES DE COMPUTADORES",
-      abrev: "DRC",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "DSS",
       id: 21714040,
       name: "DISEÑO DE SISTEMAS SOFTWARE",
-      abrev: "DSS",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "IR",
       id: 21714041,
       name: "INGENIERÍA DE REQUISITOS",
-      abrev: "IR",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "VVS",
       id: 21714042,
       name: "VERIFICACIÓN Y VALIDACIÓN DEL SOFTWARE",
-      abrev: "VVS",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "CS",
       id: 21714043,
       name: "CALIDAD DEL SOFTWARE",
-      abrev: "CS",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "DGPS",
       id: 21714044,
       name: "DIRECCIÓN Y GESTIÓN DE PROYECTOS SOFTWARE",
-      abrev: "DGPS",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "MPS",
       id: 21714045,
       name: "METODOLOGÍAS Y PROCESOS SOFTWARE",
-      abrev: "MPS",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "ES",
       id: 21714046,
       name: "EVOLUCIÓN DEL SOFTWARE",
-      abrev: "ES",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "IISS",
       id: 21714047,
       name: "IMPLEMENTACIÓN E IMPLANTACIÓN DE SISTEMAS SOFTWARE",
-      abrev: "IISS",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "DSH",
       id: 21714048,
       name: "DESARROLLO DE SISTEMAS HIPERMEDIA",
-      abrev: "DSH",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "PNET",
       id: 21714049,
       name: "PROGRAMACIÓN EN INTERNET",
-      abrev: "PNET",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "REC",
       id: 21714050,
       name: "RECUPERACIÓN DE LA INFORMACIÓN",
-      abrev: "REC-INF",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "ISI",
       id: 21714051,
       name: "INGENIERÍA DE SISTEMAS DE INFORMACIÓN",
-      abrev: "ISI",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "SIE",
       id: 21714052,
       name: "SISTEMAS DE INFORMACIÓN EN LA EMPRESA",
-      abrev: "SIE",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "ABD",
       id: 21714053,
       name: "ADMINISTRACIÓN DE BASES DE DATOS",
-      abrev: "ABD",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "TABD",
       id: 21714054,
       name: "TECNOLOGÍAS AVANZADAS DE BASES DE DATOS",
-      abrev: "TABD",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "TIN",
       id: 21714055,
       name: "TECNOLOGÍAS DE INTELIGENCIA DE NEGOCIO",
-      abrev: "TIN",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "AS",
       id: 21714056,
       name: "ADMINISTRACIÓN DE SERVIDORES",
-      abrev: "AS",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "ICR",
       id: 21714057,
       name: "INTERCONEXIÓN DE REDES",
-      abrev: "ICR",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "CSI",
       id: 21714058,
       name: "CALIDAD DE LOS SISTEMAS INFORMÁTICOS",
-      abrev: "CSI",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "SSI",
       id: 21714059,
       name: "SEGURIDAD EN LOS SISTEMAS INFORMÁTICOS",
-      abrev: "SSI",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "IW",
       id: 21714061,
       name: "INGENIERÍA WEB",
-      abrev: "IW",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "INE",
       id: 21714062,
       name: "INTERNET Y NEGOCIO ELECTRÓNICO",
-      abrev: "INE",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "PW",
       id: 21714063,
       name: "PROGRAMACIÓN WEB",
-      abrev: "PW",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "TFG",
       id: 21714064,
       name: "PROYECTO FIN DE GRADO",
-      abrev: "TFG",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "IPO",
       id: 21714080,
       name: "INTERACCIÓN PERSONA-ORDENADOR",
-      abrev: "IPO",
+      semester: false,
     },
     {
       degreeId: 1725,
-
+      abrev: "PC",
       id: 21714083,
       name: "PRÁCTICAS CURRICULARES",
-      abrev: "PC",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "SDIG",
       id: 21714084,
       name: "SISTEMAS DIGITALES",
-      abrev: "SDIG",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "VS",
       id: 21714085,
       name: "VIRTUALIZACIÓN DE SISTEMAS",
-      abrev: "VS",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "EA",
       id: 21719026,
       name: "ELECTRÓNICA ANALÓGICA",
-      abrev: "EA",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "IE",
       id: 21719029,
       name: "INSTRUMENTACIÓN ELECTRÓNICA",
-      abrev: "IE",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "RA",
       id: 21719030,
       name: "REGULACIÓN AUTOMÁTICA",
-      abrev: "RA",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "AI",
       id: 21719031,
       name: "AUTOMATIZACIÓN INDUSTRIAL",
-      abrev: "AI",
+      semester: true,
     },
     {
       degreeId: 1725,
-
+      abrev: "DDPE",
       id: 21719034,
       name: "DISEÑO Y DESARROLLO DE PROTOTIPOS ELECTRÓNICOS",
-      abrev: "DDPE",
+      semester: true,
     },
   ],
 };
