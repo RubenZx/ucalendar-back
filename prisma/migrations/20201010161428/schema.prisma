@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 enum Role {
@@ -26,14 +26,12 @@ model User {
 }
 
 model Message {
-  id          Int      @id @default(autoincrement())
-  parentId    Int
-  content     String
-  sentDate    DateTime @default(now())
-  sentTo      User     @relation(fields: [sentToUid], references: [uid], name: "sentTo")
+  id          Int    @id @default(autoincrement())
+  sentTo      User   @relation(fields: [sentToUid], references: [uid], name: "sentTo")
   sentToUid   String
-  sentFrom    User     @relation(fields: [sentFromUid], references: [uid], name: "sentFrom")
+  sentFrom    User   @relation(fields: [sentFromUid], references: [uid], name: "sentFrom")
   sentFromUid String
+  content     String
 }
 
 model Degree {
