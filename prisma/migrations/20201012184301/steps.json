@@ -1,0 +1,242 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "DeleteModel",
+      "model": "Thread"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "messagesReceived",
+      "type": "Message",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "messagesReceived"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "messagesReceived"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"sentFrom\""
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "messagesSent",
+      "type": "Message",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "messagesSent"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "messagesSent"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"sentTo\""
+    },
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "Thread"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "threadId"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "User",
+      "field": "Message"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Message",
+      "field": "sentTo",
+      "type": "User",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "sentTo"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "sentTo"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[sentToUid]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "sentTo"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[uid]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "sentTo"
+        },
+        "directive": "relation"
+      },
+      "argument": "name",
+      "value": "\"sentTo\""
+    },
+    {
+      "tag": "CreateField",
+      "model": "Message",
+      "field": "sentToUid",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Message",
+      "field": "sentFrom",
+      "type": "User",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "sentFrom"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "sentFrom"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[sentFromUid]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "sentFrom"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[uid]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Message",
+          "field": "sentFrom"
+        },
+        "directive": "relation"
+      },
+      "argument": "name",
+      "value": "\"sentFrom\""
+    },
+    {
+      "tag": "CreateField",
+      "model": "Message",
+      "field": "sentFromUid",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Message",
+      "field": "Thread"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Message",
+      "field": "threadId"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Message",
+      "field": "sentByUser"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Message",
+      "field": "userUid"
+    }
+  ]
+}
