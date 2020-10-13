@@ -68,13 +68,19 @@ export class UsersController {
   }
 
   @Roles("ADMINISTRATOR", "PROFESSOR")
-  @Get(":id/messages")
-  async getMessages(@Param("id") id: string) {
-    return this.prisma.message.findMany({
-      where: { sentToUid: id },
-      include: { sentFrom: { select: { name: true, lastName: true } } },
-      orderBy: { sentDate: "desc" },
+  @Get(":id/messages/:idFrom")
+  async getMessages(@Param("id") id: string, @Param("idFrom") idFrom: string) {
+    const messagesFromToMe = await this.prisma.message.findMany({
+      where: { sentToUid: id, sentFromUid: idFrom },
     });
+
+    const messagesMeToFrom = await this.prisma.message.findMany({
+      where: { sentToUid: idFrom, sentFromUid: id },
+    });
+
+    return [...messagesFromToMe, ...messagesMeToFrom].sort(
+      (m1, m2) => m2.sentDate.getTime() - m1.sentDate.getTime()
+    );
   }
 
   @Get(":id/subjects/:semester")

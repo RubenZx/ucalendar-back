@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   ForbiddenException,
+  Get,
   Post,
   Req,
   UseGuards,
@@ -17,6 +18,35 @@ import { CreateMessageDto } from "./createMessage.dto";
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class MessagesController {
   constructor(private readonly prisma: PrismaService) {}
+
+  @Roles("ADMINISTRATOR", "PROFESSOR")
+  @Get("/users")
+  @Bind(Req())
+  async getUsersMessages(req: any) {
+    const usersMeFrom = await this.prisma.message.findMany({
+      where: { sentFromUid: req.user.uid },
+      select: { sentTo: { select: { name: true, lastName: true, uid: true } } },
+    });
+
+    const usersMeTo = await this.prisma.message.findMany({
+      where: { sentToUid: req.user.uid },
+      select: {
+        sentFrom: { select: { name: true, lastName: true, uid: true } },
+      },
+    });
+
+    return [
+      ...usersMeFrom.map((user) => {
+        return { ...user.sentTo };
+      }),
+      ...usersMeTo.map((usersMeTo) => {
+        return { ...usersMeTo.sentFrom };
+      }),
+    ].filter(
+      (v, i, a) =>
+        a.findIndex((t) => JSON.stringify(t) === JSON.stringify(v)) === i
+    );
+  }
 
   @Roles("ADMINISTRATOR", "PROFESSOR")
   @Post()
