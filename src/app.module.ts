@@ -10,6 +10,7 @@ import { TimetableItemsController } from "./timetable-items/timetable-items.cont
 import { UsersController } from "./users/users.controller";
 import { UsersModule } from "./users/users.module";
 import { TimetableItemsService } from './timetable-items/timetable-items.service';
+import { MessagesController } from './messages/messages.controller';
 
 @Module({
   imports: [AuthModule, UsersModule],
@@ -21,6 +22,7 @@ import { TimetableItemsService } from './timetable-items/timetable-items.service
     GroupsController,
     ClassRoomsController,
     UsersController,
+    MessagesController,
   ],
   providers: [PrismaService, TimetableItemsService],
 })

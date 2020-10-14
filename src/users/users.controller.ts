@@ -27,6 +27,17 @@ export class UsersController {
     private timetableItemsService: TimetableItemsService
   ) {}
 
+  @Get()
+  @Bind(Req())
+  async findAll(req: any) {
+    return this.prisma.user.findMany({
+      where: {
+        role: req.user.role === "PROFESSOR" ? "ADMINISTRATOR" : "PROFESSOR",
+      },
+      select: { name: true, lastName: true, uid: true },
+    });
+  }
+
   @Get(":id")
   async findOne(@Param("id") id: string) {
     const {
@@ -54,6 +65,22 @@ export class UsersController {
         return { ...item.timeTableItem };
       }),
     };
+  }
+
+  @Roles("ADMINISTRATOR", "PROFESSOR")
+  @Get(":id/messages/:idFrom")
+  async getMessages(@Param("id") id: string, @Param("idFrom") idFrom: string) {
+    const messagesFromToMe = await this.prisma.message.findMany({
+      where: { sentToUid: id, sentFromUid: idFrom },
+    });
+
+    const messagesMeToFrom = await this.prisma.message.findMany({
+      where: { sentToUid: idFrom, sentFromUid: id },
+    });
+
+    return [...messagesFromToMe, ...messagesMeToFrom].sort(
+      (m1, m2) => m2.sentDate.getTime() - m1.sentDate.getTime()
+    );
   }
 
   @Get(":id/subjects/:semester")
