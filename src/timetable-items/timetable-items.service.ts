@@ -36,8 +36,8 @@ export class TimetableItemsService {
     const isValid = timetableItems.every(({ timeTableItem }) => {
       if (itemToAdd.dayOfTheWeek === timeTableItem.dayOfTheWeek) {
         return (
-          itemToAdd.startHour > timeTableItem.endHour ||
-          itemToAdd.endHour < timeTableItem.startHour
+          itemToAdd.startHour >= timeTableItem.endHour ||
+          itemToAdd.endHour <= timeTableItem.startHour
         );
       } else {
         return true;

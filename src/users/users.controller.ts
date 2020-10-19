@@ -104,17 +104,18 @@ export class UsersController {
   }
 
   @Roles("ALUMN", "PROFESSOR")
-  @Delete(":id/timetable-items")
+  @Delete(":id/timetable-items/:semester")
   @Bind(Req())
   async removeTimetableItems(
     { user }: { user: Omit<User, "password"> },
-    @Param("id") id: string
+    @Param("id") id: string,
+    @Param("semester") semester: boolean
   ) {
     if (id !== user.uid) {
       throw new ForbiddenException();
     }
     const res = await this.prisma.userTimetableItems.deleteMany({
-      where: { userId: id },
+      where: { userId: id, timeTableItem: { semester } },
     });
     return res;
   }
