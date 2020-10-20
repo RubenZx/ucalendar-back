@@ -1,11 +1,11 @@
-FROM node:12 as build
+FROM node:12.18.4 as build
 WORKDIR /app
 COPY . .
 RUN yarn install
 RUN yarn generate
 RUN yarn build
 
-FROM node:12
+FROM node:12.18.4
 WORKDIR /app
 COPY --from=build /app/dist /app
 COPY --from=build /app/package*.json /app
