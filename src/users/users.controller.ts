@@ -13,11 +13,11 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { User } from "@prisma/client";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { PrismaService } from "src/prisma/prisma.service";
-import { Roles } from "src/roles/roles.decoratos";
-import { RolesGuard } from "src/roles/roles.guard";
-import { TimetableItemsService } from "src/timetable-items/timetable-items.service";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { PrismaService } from "../prisma/prisma.service";
+import { Roles } from "../roles/roles.decoratos";
+import { RolesGuard } from "../roles/roles.guard";
+import { TimetableItemsService } from "../timetable-items/timetable-items.service";
 
 @Controller("users")
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -131,6 +131,14 @@ export class UsersController {
     if (id !== user.uid) {
       throw new ForbiddenException();
     }
+
+    if (!timetableItemId) {
+      throw new BadRequestException(
+        undefined,
+        "Por favor, seleccione un item a añadir"
+      );
+    }
+
     const isItemValid = await this.timetableItemsService.isNewItemValid(
       id,
       timetableItemId

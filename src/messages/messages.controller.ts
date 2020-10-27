@@ -8,10 +8,10 @@ import {
   Req,
   UseGuards,
 } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { PrismaService } from "src/prisma/prisma.service";
-import { Roles } from "src/roles/roles.decoratos";
-import { RolesGuard } from "src/roles/roles.guard";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { PrismaService } from "../prisma/prisma.service";
+import { Roles } from "../roles/roles.decoratos";
+import { RolesGuard } from "../roles/roles.guard";
 import { CreateMessageDto } from "./createMessage.dto";
 
 @Controller("messages")
@@ -55,7 +55,11 @@ export class MessagesController {
     req: any,
     @Body() { sentToUid, sentFromUid, content }: CreateMessageDto
   ) {
-    if (req.user.uid !== sentFromUid) throw new ForbiddenException();
+    if (req.user.uid !== sentFromUid)
+      throw new ForbiddenException(
+        undefined,
+        "El emisor no corresponde con el usuario logueado"
+      );
     const message = await this.prisma.message.create({
       data: {
         content,

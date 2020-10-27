@@ -11,10 +11,10 @@ import {
   Put,
   UseGuards,
 } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { PrismaService } from "src/prisma/prisma.service";
-import { Roles } from "src/roles/roles.decoratos";
-import { RolesGuard } from "src/roles/roles.guard";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { PrismaService } from "../prisma/prisma.service";
+import { Roles } from "../roles/roles.decoratos";
+import { RolesGuard } from "../roles/roles.guard";
 import { UpdateTimeTableItemDto } from "./updateTimeTableItem.dto";
 
 @Controller("timetable-items")
@@ -43,7 +43,22 @@ export class TimetableItemsController {
     @Param("id") id: number,
     @Body() { classRoomId, groupId, ...newItem }: UpdateTimeTableItemDto
   ) {
-    if (newItem.endHour < newItem.startHour) throw new BadRequestException();
+    if (newItem.endHour < newItem.startHour)
+      throw new BadRequestException(
+        undefined,
+        "La hora de fin ha de ser mayor a la de inicio"
+      );
+
+    const subject = await this.prisma.timeTableItem.findOne({
+      where: { id },
+      include: { subject: { select: { semester: true } } },
+    });
+    if (subject.semester !== newItem.semester)
+      throw new BadRequestException(
+        undefined,
+        "El semestre del item debe coincidir con el de la asignatura"
+      );
+
     const timeTableItems = await this.prisma.timeTableItem.findMany({
       where: {
         // take timetable-items with the same semester, class-room and day of the week
@@ -64,7 +79,10 @@ export class TimetableItemsController {
     );
 
     if (result.some((value) => value === false))
-      throw new BadRequestException(undefined, "Intervalo de horas erróneo");
+      throw new BadRequestException(
+        undefined,
+        "Item inválido, horas, aula y día incompatibles"
+      );
 
     try {
       const itemUpdated = await this.prisma.timeTableItem.update({

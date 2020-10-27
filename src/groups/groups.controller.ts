@@ -8,10 +8,10 @@ import {
   Post,
   UseGuards,
 } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { PrismaService } from "src/prisma/prisma.service";
-import { Roles } from "src/roles/roles.decoratos";
-import { RolesGuard } from "src/roles/roles.guard";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { PrismaService } from "../prisma/prisma.service";
+import { Roles } from "../roles/roles.decoratos";
+import { RolesGuard } from "../roles/roles.guard";
 
 @Controller("groups")
 @UseGuards(JwtAuthGuard, RolesGuard)
