@@ -72,6 +72,10 @@
     ],
     "rootDir": "src",
     "testRegex": ".spec.ts$",
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },

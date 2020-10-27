@@ -4,13 +4,13 @@ import { AuthModule } from "./auth/auth.module";
 import { ClassRoomsController } from "./class-rooms/class-rooms.controller";
 import { DegreesController } from "./degrees/degrees.controller";
 import { GroupsController } from "./groups/groups.controller";
+import { MessagesController } from "./messages/messages.controller";
 import { PrismaService } from "./prisma/prisma.service";
 import { SubjectsController } from "./subjects/subjects.controller";
 import { TimetableItemsController } from "./timetable-items/timetable-items.controller";
+import { TimetableItemsService } from "./timetable-items/timetable-items.service";
 import { UsersController } from "./users/users.controller";
 import { UsersModule } from "./users/users.module";
-import { TimetableItemsService } from './timetable-items/timetable-items.service';
-import { MessagesController } from './messages/messages.controller';
 
 @Module({
   imports: [AuthModule, UsersModule],

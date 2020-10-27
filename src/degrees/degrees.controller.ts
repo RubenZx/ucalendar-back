@@ -1,5 +1,5 @@
 import { Controller, Get, NotFoundException, Param } from "@nestjs/common";
-import { PrismaService } from "src/prisma/prisma.service";
+import { PrismaService } from "../prisma/prisma.service";
 
 @Controller("degrees")
 export class DegreesController {
@@ -21,7 +21,7 @@ export class DegreesController {
         semester: { equals: semester },
       },
     });
-    if (!subjects) throw new NotFoundException();
+    if (subjects.length === 0) throw new NotFoundException();
     return subjects;
   }
 }
